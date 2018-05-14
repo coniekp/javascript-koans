@@ -104,26 +104,98 @@ describe("About Applying What We Have Learnt", function() {
 
   /*********************************************************************************/
   /* UNCOMMENT FOR EXTRA CREDIT */
-  /*
-  it("should find the largest prime factor of a composite number", function () {
   
+  it("should find the largest prime factor of a composite number", function () {
+    var findLargestPrimeFactor = function (num) {
+      var largestFactor = 1;
+
+      while (num%2 === 0){
+        largestFactor = 2;
+        num = num/2;
+      }
+
+      for (var i = 3; i <= Math.sqrt(num); i = i + 2){
+        while (num%i === 0){
+          largestFactor = i;
+          num = num/i;
+        }
+      }
+
+      return num>largestFactor? num: largestFactor;
+    };
+    expect(findLargestPrimeFactor(99)).toBe(11);
   });
 
   it("should find the largest palindrome made from the product of two 3 digit numbers", function () {
-    
+    var findLargestPalindromeProduct = function () {
+      
+      var isPalindrome = function (num){
+        return num === parseInt(num.toString().split("").reverse().join(""));
+      }
+
+      var maxPalindrome = 0;
+
+      for (var num1 = 999; num1 >=100 ; num1--){
+        for (var num2 = 999; num2 >= 100; num2--){
+          var product = num1*num2;
+          if (isPalindrome (product) && (product)>maxPalindrome){
+            maxPalindrome = num1*num2;
+          }
+        }
+      }
+  
+      return maxPalindrome;
+    };
+
+    expect(findLargestPalindromeProduct()).toBe(906609);
   });
 
   it("should find the smallest number divisible by each of the numbers 1 to 20", function () {
-      
+      //I'm not sure I understand the objective of this function...
     
   });
 
   it("should find the difference between the sum of the squares and the square of the sums", function () {
-    
+    var compareSums = function (){
+      var nums = [...arguments];
+  
+      var squareOfSum = Math.pow(nums.reduce(function (total, num){
+        return total+num
+      },0),2);
+      var sumOfSquares = nums.map(function(num){ 
+        return Math.pow(num,2);
+      }).reduce(function(total, num){
+          return total+num;
+      },0);
+
+       return sumOfSquares - squareOfSum;
+      }
+
+      expect(compareSums(1,2,3)).toBe(-22);
   });
 
   it("should find the 10001st prime", function () {
+    var findNthPrime = function(num) {
+      var memo = [2,3];
+      var isPrime = function (n){
+        return memo.every(function(prime){
+          return n%prime != 0; 
+        });
+      };
+
+      while (!memo[num-1]){
+        var currentNumber = memo[memo.length-1];
+        while (!isPrime (currentNumber)){
+          currentNumber = currentNumber + 2;
+        }
+        memo.push(currentNumber);
+      }
+
+      return memo.pop();
+    }
+
+    expect(findNthPrime(10001)).toBe(104743);
 
   });
-  */
+  
 });
