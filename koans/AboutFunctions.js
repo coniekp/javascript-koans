@@ -107,8 +107,8 @@ describe("About Functions", function() {
       return a * b;
     };
 
-    var myAnswer = "function(a, b) {// An internal comment return a * b;};
+    var myAnswer = `function (a, b) {\n      // An internal comment\n      return a * b;\n    }`;
     
-    expect(JSON.stringify(multiply.toString())).toBe(myAnswer);
+    expect(multiply.toString()).toBe(myAnswer);
   });    
 });
